@@ -1,0 +1,34 @@
+import React from 'react';
+import MomentUtils from '@date-io/moment';
+import {
+  TimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+
+function App() {
+  const selectedBeginTime = new Date();
+  const selectedWorkTime = new Date();
+  const selectedEndTime = new Date();
+  selectedWorkTime.setHours(8, 0, 0, 0);
+
+  return (
+    <div>
+      <p>Arbeitsbeginn:</p>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <TimePicker value={selectedBeginTime} onChange={} ampm={false} />
+      </MuiPickersUtilsProvider>
+
+      <p>Arbeitszeit:</p>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <TimePicker value={selectedWorkTime} ampm={false} />
+      </MuiPickersUtilsProvider>
+
+      <p>Arbeitsende:</p>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <TimePicker value={selectedEndTime} ampm={false} readOnly={true} />
+      </MuiPickersUtilsProvider>
+    </div>
+  );
+}
+
+export default App;
