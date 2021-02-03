@@ -10,11 +10,11 @@ function App() {
   const [workTime, setWork] = useState(new Date('2017-05-24T08:00'));
   const [endTime, setEnd] = useState(new Date('2017-05-24T15:30'));
 
-  function calculateEnd(time) {
+  function calculateEnd(begin, work) {
     let breakMinutes = 0;
 
-    let hours = workTime.getHours();
-    let minutes = workTime.getMinutes();
+    let hours = work.getHours();
+    let minutes = work.getMinutes();
 
     if (hours < 6 || (hours === 6 && minutes === 0)) {
       breakMinutes = 0;
@@ -28,27 +28,31 @@ function App() {
       }
     }
 
-    time.setHours(time.getHours() + hours);
-    time.setMinutes(time.getMinutes() + minutes + breakMinutes);
-    setEnd(time);
+    begin.setHours(begin.getHours() + hours);
+    begin.setMinutes(begin.getMinutes() + minutes + breakMinutes);
+    setEnd(begin);
   }
 
   function handleWorkChange(event) {
+    let work = new Date(event);
+    let begin = new Date(beginTime);
     setWork(new Date(event));
+    calculateEnd(begin, work);
   }
 
   function handleBeginChange(event) {
-    let time = new Date(event);
+    let work = new Date(event);
+    let begin = new Date(workTime);
     setBegin(new Date(event));
-    calculateEnd(time);
+    calculateEnd(begin, work);
   }
 
   return (
     <MuiPickersUtilsProvider utils={moment}>
       <p>Arbeitszeit:</p>
-      <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk/>
+      <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk />
       <p>Arbeitsbeginn:</p>
-      <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk/>
+      <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk />
       <p>Arbeitsende:</p>
       <TimePicker value={endTime} ampm={false} />
     </MuiPickersUtilsProvider>
