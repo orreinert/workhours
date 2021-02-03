@@ -52,10 +52,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <MuiPickersUtilsProvider utils={moment}>
-          <p className="App-text">Arbeitszeit:</p>
-          <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk />
           <p className="App-text">Arbeitsbeginn:</p>
-          <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk />
+          <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="portrait" autoOk />
+          <p className="App-text">Arbeitszeit:</p>
+          <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="portrait" autoOk />
           <p className="App-text">Arbeitsende:</p>
           <TimePicker value={endTime} ampm={false} readOnly />
         </MuiPickersUtilsProvider></header>
