@@ -4,6 +4,7 @@ import {
   TimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import './App.css';
 
 function App() {
   const [beginTime, setBegin] = useState(new Date('2017-05-24T07:00'));
@@ -48,14 +49,17 @@ function App() {
   }
 
   return (
-    <MuiPickersUtilsProvider utils={moment}>
-      <p>Arbeitszeit:</p>
-      <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk />
-      <p>Arbeitsbeginn:</p>
-      <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk />
-      <p>Arbeitsende:</p>
-      <TimePicker value={endTime} ampm={false} />
-    </MuiPickersUtilsProvider>
+    <div className="App">
+      <header className="App-header">
+        <MuiPickersUtilsProvider utils={moment}>
+          <p className="App-text">Arbeitszeit:</p>
+          <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk />
+          <p className="App-text">Arbeitsbeginn:</p>
+          <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk />
+          <p className="App-text">Arbeitsende:</p>
+          <TimePicker value={endTime} ampm={false} readOnly />
+        </MuiPickersUtilsProvider></header>
+    </div>
   );
 }
 
