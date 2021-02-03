@@ -6,14 +6,12 @@ import {
 } from '@material-ui/pickers';
 
 function App() {
-  const [beginTime, setBegin] = useState(new Date());
-  const [workTime, setWork] = useState(new Date());
-  const [endTime, setEnd] = useState(new Date());
+  const [beginTime, setBegin] = useState(new Date('2017-05-24T07:00'));
+  const [workTime, setWork] = useState(new Date('2017-05-24T08:00'));
+  const [endTime, setEnd] = useState(new Date('2017-05-24T15:30'));
 
-  function calculateEnd() {
+  function calculateEnd(time) {
     let breakMinutes = 0;
-    console.log(beginTime);
-    console.log(workTime);
 
     let hours = workTime.getHours();
     let minutes = workTime.getMinutes();
@@ -30,33 +28,29 @@ function App() {
       }
     }
 
-    let end = beginTime;
-    end = moment(end).add(workTime.getHours(), 'hours');
-    end = moment(end).add(workTime.getMinutes(), 'minutes');
-    end = moment(end).add(breakMinutes, 'minutes');
-    setEnd(end);
-  }
-
-  function handleBeginChange(event) {
-    let time = new Date(event);
-    console.log(time);
-    setBegin(time);
-    calculateEnd();
+    time.setHours(time.getHours() + hours);
+    time.setMinutes(time.getMinutes() + minutes + breakMinutes);
+    setEnd(time);
   }
 
   function handleWorkChange(event) {
     setWork(new Date(event));
-    calculateEnd();
+  }
+
+  function handleBeginChange(event) {
+    let time = new Date(event);
+    setBegin(new Date(event));
+    calculateEnd(time);
   }
 
   return (
     <MuiPickersUtilsProvider utils={moment}>
-      <p>Arbeitsbeginn:</p>
-      <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} />
       <p>Arbeitszeit:</p>
-      <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} />
+      <TimePicker value={workTime} onChange={handleWorkChange} ampm={false} orientation="landscape" autoOk/>
+      <p>Arbeitsbeginn:</p>
+      <TimePicker value={beginTime} onChange={handleBeginChange} ampm={false} orientation="landscape" autoOk/>
       <p>Arbeitsende:</p>
-      <TimePicker value={endTime} ampm={false} readOnly={true} />
+      <TimePicker value={endTime} ampm={false} />
     </MuiPickersUtilsProvider>
   );
 }
